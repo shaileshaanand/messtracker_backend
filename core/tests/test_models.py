@@ -31,10 +31,7 @@ class TestUser:
 
     def test_create_new_superuser(self):
         user: User = get_user_model().objects.create_superuser(
-            "test@test.com",
-            "123",
-            first_name="admin",
-            last_name="user"
+            "test@test.com", "123", first_name="admin", last_name="user"
         )
         assert user.is_superuser is True
         assert user.is_staff is True
@@ -51,7 +48,7 @@ class TestUser:
             password=password,
             first_name=first_name,
             last_name=last_name,
-            is_staff=True
+            is_staff=True,
         )
         assert user.email == email
         assert user.first_name == first_name
@@ -91,4 +88,4 @@ class TestUser:
         )
 
         user.save()
-        assert user.name() == first_name+" "+last_name
+        assert user.name() == first_name + " " + last_name
