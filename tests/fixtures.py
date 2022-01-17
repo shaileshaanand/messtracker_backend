@@ -1,3 +1,4 @@
+from rest_framework.test import APIClient
 import pytest
 
 from core.models import User
@@ -10,3 +11,8 @@ def create_user():
         return UserFactory.create(**kwargs)
 
     return _create_user
+
+
+@pytest.fixture(scope="function")
+def rest_client():
+    return APIClient()
