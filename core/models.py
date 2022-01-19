@@ -6,6 +6,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -60,3 +61,54 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
         if self.is_staff:
             return "staff"
         return "student"
+
+
+class Mess(BaseModel):
+
+    name = models.CharField(max_length=255, null=False, blank=False)
+    owner = models.ForeignKey(User, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.name}, Owner: {self.owner.name()}"
+
+
+class MealItem(BaseModel):
+    name = models.CharField(max_length=255, null=False, blank=False)
+
+    def __str__(self) -> str:
+        return f"MealItem: {self.name}"
+
+
+class Meal(BaseModel):
+    class MEAL_TYPE(models.TextChoices):
+        BREAKFAST = "BR", _("BREAKFAST")
+        LUNCH = "LU", _("LUNCH")
+        SNACKS = "SN", _("SNACKS")
+        DINNER = "DI", _("DINNER")
+
+    name = models.CharField(max_length=255, null=False, blank=False)
+    current_price = models.IntegerField()
+    type = models.CharField(
+        max_length=2, choices=MEAL_TYPE.choices, null=False, blank=False)
+    meal_items = models.ManyToManyField(MealItem)
+
+    def __str__(self):
+        # items = ",".join([f"{item.name}" for item in self.meal_items.all()])
+        return f"name {self.name} price {self.current_price} type {self.type}"
+
+
+class Menu(BaseModel):
+
+    breakfast_meal = models.ForeignKey(
+        Meal, on_delete=models.PROTECT, related_name="breakfast_meal")
+    lunch_meal = models.ForeignKey(
+        Meal, on_delete=models.PROTECT, related_name="lunch_meal")
+    snacks_meal = models.ForeignKey(
+        Meal, on_delete=models.PROTECT, related_name="snacks_meal")
+    dinner_meal = models.ForeignKey(
+        Meal, on_delete=models.PROTECT, related_name="dinner_meal")
+    date = models.DateField()
+    mess = models.ForeignKey(Mess, on_delete=models.PROTECT)
+
+    def __str__(self) -> str:
+        return f"Menu -> breakfast:f{self.breakfast_meal}\nlunch:f{self.lunch_meal}\nsnacks:f{self.snacks_meal}\ndinner:f{self.dinner_meal}"

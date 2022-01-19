@@ -64,3 +64,9 @@ class TestUser:
         user: User = create_user()
         user.save()
         assert user.name() == user.first_name + " " + user.last_name
+
+
+# @pytest.mark.db
+# class TestMealItem:
+
+#     def create_meal_item_success(self):
