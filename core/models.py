@@ -89,7 +89,8 @@ class Meal(BaseModel):
     name = models.CharField(max_length=255, null=False, blank=False)
     current_price = models.IntegerField()
     type = models.CharField(
-        max_length=2, choices=MEAL_TYPE.choices, null=False, blank=False)
+        max_length=2, choices=MEAL_TYPE.choices, null=False, blank=False
+    )
     meal_items = models.ManyToManyField(MealItem)
 
     def __str__(self):
@@ -100,13 +101,17 @@ class Meal(BaseModel):
 class Menu(BaseModel):
 
     breakfast_meal = models.ForeignKey(
-        Meal, on_delete=models.PROTECT, related_name="breakfast_meal")
+        Meal, on_delete=models.PROTECT, related_name="breakfast_meal"
+    )
     lunch_meal = models.ForeignKey(
-        Meal, on_delete=models.PROTECT, related_name="lunch_meal")
+        Meal, on_delete=models.PROTECT, related_name="lunch_meal"
+    )
     snacks_meal = models.ForeignKey(
-        Meal, on_delete=models.PROTECT, related_name="snacks_meal")
+        Meal, on_delete=models.PROTECT, related_name="snacks_meal"
+    )
     dinner_meal = models.ForeignKey(
-        Meal, on_delete=models.PROTECT, related_name="dinner_meal")
+        Meal, on_delete=models.PROTECT, related_name="dinner_meal"
+    )
     date = models.DateField()
     mess = models.ForeignKey(Mess, on_delete=models.PROTECT)
 

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls.conf import include
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf.urls import url
 
 from rest_framework import permissions
@@ -24,6 +24,8 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 import os
+
+import mess.urls
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -44,4 +46,6 @@ urlpatterns = [
     ),
     path("admin/", admin.site.urls),
     path("api/user/", include("user.urls")),
+    path("api/mess/", include("mess.urls")),
 ]
+# urlpatterns += mess.urls.router.urls

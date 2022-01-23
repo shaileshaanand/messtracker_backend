@@ -10,73 +10,167 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0001_initial'),
+        ("core", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Meal',
+            name="Meal",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('external_id', models.UUIDField(default=uuid.uuid4, editable=False)),
-                ('created_at', models.DateTimeField(auto_now=True)),
-                ('last_edited_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('name', models.CharField(max_length=255)),
-                ('current_price', models.IntegerField()),
-                ('type', models.CharField(choices=[('BR', 'BREAKFAST'), ('LU', 'LUNCH'), ('SN', 'SNACKS'), ('DI', 'DINNER')], max_length=2)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("external_id", models.UUIDField(default=uuid.uuid4, editable=False)),
+                ("created_at", models.DateTimeField(auto_now=True)),
+                (
+                    "last_edited_at",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("current_price", models.IntegerField()),
+                (
+                    "type",
+                    models.CharField(
+                        choices=[
+                            ("BR", "BREAKFAST"),
+                            ("LU", "LUNCH"),
+                            ("SN", "SNACKS"),
+                            ("DI", "DINNER"),
+                        ],
+                        max_length=2,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='MealItem',
+            name="MealItem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('external_id', models.UUIDField(default=uuid.uuid4, editable=False)),
-                ('created_at', models.DateTimeField(auto_now=True)),
-                ('last_edited_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('name', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("external_id", models.UUIDField(default=uuid.uuid4, editable=False)),
+                ("created_at", models.DateTimeField(auto_now=True)),
+                (
+                    "last_edited_at",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
+                ("name", models.CharField(max_length=255)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Mess',
+            name="Mess",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('external_id', models.UUIDField(default=uuid.uuid4, editable=False)),
-                ('created_at', models.DateTimeField(auto_now=True)),
-                ('last_edited_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('name', models.CharField(max_length=255)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("external_id", models.UUIDField(default=uuid.uuid4, editable=False)),
+                ("created_at", models.DateTimeField(auto_now=True)),
+                (
+                    "last_edited_at",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
+                ("name", models.CharField(max_length=255)),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Menu',
+            name="Menu",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('external_id', models.UUIDField(default=uuid.uuid4, editable=False)),
-                ('created_at', models.DateTimeField(auto_now=True)),
-                ('last_edited_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('date', models.DateField()),
-                ('breakfast_meal', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='breakfast_meal', to='core.meal')),
-                ('dinner_meal', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='dinner_meal', to='core.meal')),
-                ('lunch_meal', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='lunch_meal', to='core.meal')),
-                ('mess', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='core.mess')),
-                ('snacks_meal', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='snacks_meal', to='core.meal')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("external_id", models.UUIDField(default=uuid.uuid4, editable=False)),
+                ("created_at", models.DateTimeField(auto_now=True)),
+                (
+                    "last_edited_at",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
+                ("date", models.DateField()),
+                (
+                    "breakfast_meal",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="breakfast_meal",
+                        to="core.meal",
+                    ),
+                ),
+                (
+                    "dinner_meal",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="dinner_meal",
+                        to="core.meal",
+                    ),
+                ),
+                (
+                    "lunch_meal",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="lunch_meal",
+                        to="core.meal",
+                    ),
+                ),
+                (
+                    "mess",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT, to="core.mess"
+                    ),
+                ),
+                (
+                    "snacks_meal",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="snacks_meal",
+                        to="core.meal",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.AddField(
-            model_name='meal',
-            name='meal_items',
-            field=models.ManyToManyField(to='core.MealItem'),
+            model_name="meal",
+            name="meal_items",
+            field=models.ManyToManyField(to="core.MealItem"),
         ),
     ]
